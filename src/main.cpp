@@ -15,12 +15,10 @@
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
-    Q_INIT_RESOURCE(app);
-
     QTranslator qtTranslator, translator;
 
     // For some reason Qtc loads the wrong locale, force it for debugging.
-#if 0
+#if 1
     QLocale locale = QLocale::system();
 #else
     QLocale locale(QLocale("it"));
@@ -52,8 +50,20 @@ int main(int argc, char** argv)
     if (isLoaded)
         app.installTranslator(&translator);
 
-    auto iconName = QString(":/icons/sc-apps-colorpick.svg");
-    app.setWindowIcon(QIcon(iconName));
+    QString iconName = QStringLiteral("/colorpick.svg");
+    QString icoLocalPath = QCoreApplication::applicationDirPath() + iconName;
+    QString icoSysPath = QStringLiteral(PROJECT_ICON_SYSTEM_PATH) + iconName;
+
+    // Try first to find the app icon in the current/build directory
+    QIcon appIcon = QIcon(icoLocalPath);
+    if (appIcon.isNull())
+        appIcon = QIcon(icoSysPath);
+
+    app.setApplicationName(APPLICATION_NAME);
+    app.setApplicationDisplayName(APPLICATION_DISPLAY_NAME);
+    app.setOrganizationName(ORGANIZATION_NAME);
+    app.setOrganizationDomain(ORGANIZATION_DOMAIN);
+    app.setWindowIcon(appIcon);
 
     Window window;
     window.show();

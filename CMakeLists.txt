@@ -3,11 +3,10 @@ project(Colorpick
     VERSION 0.1.0
     LANGUAGES CXX
 )
-string(TOLOWER ${PROJECT_NAME} PROJECT_ID)
+include(Config.cmake)
 
 set(CMAKE_CXX_STANDARD 17) #Qt6 needs C++17
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 #
 # Qt
 #
@@ -17,13 +16,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 find_package(QT NAMES Qt${PROJECT_QT_VERSION})
 find_package(Qt${QT_VERSION_MAJOR} CONFIG REQUIRED Core LinguistTools Widgets)
-
-#
-# Other dependencies
-#
-find_package(ECM REQUIRED NO_MODULE)
-list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-
 #
 # Project files
 #
@@ -51,19 +43,12 @@ set(PROJECT_SOURCES
     src/window.cpp
     src/main.cpp
 )
-
+source_group("Sources" FILES ${PROJECT_SOURCES})
 #
 # Resources
 #
-include(ECMAddAppIcon)
-ecm_add_app_icon(PROJECT_SOURCES ICONS
-    resources/icons/1024-apps-${PROJECT_ID}.png
-    resources/icons/256-apps-${PROJECT_ID}.png
-    resources/icons/32-apps-${PROJECT_ID}.png
-    resources/icons/sc-apps-${PROJECT_ID}.svg
-)
 set(PROJECT_RESOURCES
-    resources/app.qrc
+    resources/application.qrc
     resources/freedesktop/${PROJECT_ID}.desktop
 )
 set(PROJECT_TRANSLATION_TEMPLATE resources/translations/${PROJECT_ID}.ts)
@@ -74,7 +59,10 @@ source_group("Resource Files" FILES
     ${PROJECT_TRANSLATION_TEMPLATE}
     ${PROJECT_TRANSLATION_SOURCES}
 )
-
+# Copy the application icon into the build dir to be used when running from IDE
+configure_file("resources/icons/application.svg"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_ID}.svg" COPYONLY
+)
 #
 # Translations
 #
@@ -104,7 +92,6 @@ else()
         )
     endif()
 endif()
-
 #
 # Build
 #
@@ -126,25 +113,30 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 if (UNIX AND NOT APPLE)
     include(GNUInstallDirs)
     set(PROJECT_DATA_DIR "${CMAKE_INSTALL_FULL_DATADIR}/${PROJECT_ID}")
+    set(PROJECT_ICON_SYSTEM_PATH "${CMAKE_INSTALL_FULL_DATADIR}/icons/hicolor/scalable/apps")
 else()
     #TODO: macOS and Windows
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_ID}")
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Woverloaded-virtual)
-target_compile_definitions(${PROJECT_NAME} PRIVATE PROJECT_DATA_DIR="${PROJECT_DATA_DIR}")
-
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    APPLICATION_NAME="${PROJECT_ID}"
+    APPLICATION_DISPLAY_NAME="${PROJECT_NAME}"
+    ORGANIZATION_NAME="${PROJECT_ORGANIZATION_NAME}"
+    ORGANIZATION_DOMAIN="${PROJECT_ORGANIZATION_URL}"
+    PROJECT_DATA_DIR="${PROJECT_DATA_DIR}"
+    PROJECT_ICON_SYSTEM_PATH="${PROJECT_ICON_SYSTEM_PATH}"
+)
 if(${QT_VERSION_MAJOR} VERSION_GREATER_EQUAL 6.2)
     qt_add_lrelease(${PROJECT_NAME}
         TS_FILES ${PROJECT_TRANSLATION_SOURCES}
         QM_FILES_OUTPUT_VARIABLE PROJECT_QM_FILES
     )
 endif()
-
 #
 # Install
 #
-include(ECMInstallIcons)
 if (UNIX AND NOT APPLE)
     install(TARGETS ${PROJECT_NAME}
         DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -158,11 +150,11 @@ if (UNIX AND NOT APPLE)
     install(FILES "${PROJECT_QM_FILES}"
         DESTINATION "${CMAKE_INSTALL_DATADIR}/${PROJECT_ID}/translations"
     )
-    ecm_install_icons(ICONS "sc-apps-${PROJECT_ID}.svg"
-        DESTINATION "${CMAKE_INSTALL_DATADIR}/icons"
+    install(FILES "resources/icons/application.svg"
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
+        RENAME "${PROJECT_ID}.svg"
     )
 endif()
-
 #
 # Project information
 #
