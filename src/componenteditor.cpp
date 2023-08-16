@@ -37,7 +37,6 @@ ComponentEditor::ComponentEditor(ColorSpace *colorSpace, QWidget *parent)
         selector->setRange(0, max);
         selector->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
         selector->setMinimumWidth(220);
-        selector->setArrowDirection(Qt::UpArrow);
 
         QSpinBox *spinBox = new QSpinBox();
         spinBox->setRange(0, max);
@@ -46,9 +45,9 @@ ComponentEditor::ComponentEditor(ColorSpace *colorSpace, QWidget *parent)
         layout->addWidget(selector, row, 1);
         layout->addWidget(spinBox, row, 2);
 
-        connect(selector, &KGradientSelector::valueChanged, this, &ComponentEditor::updateFromSelectors);
-        connect(selector, &KGradientSelector::valueChanged, spinBox, &QSpinBox::setValue);
-        connect(spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), selector, &KGradientSelector::setValue);
+        connect(selector, &ImageGradientSelector::valueChanged, this, &ComponentEditor::updateFromSelectors);
+        connect(selector, &ImageGradientSelector::valueChanged, spinBox, &QSpinBox::setValue);
+        connect(spinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), selector, &ImageGradientSelector::setValue);
 
         mComponentSelectors[row] = selector;
         mComponentSpinBoxes[row] = spinBox;

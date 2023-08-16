@@ -21,7 +21,6 @@ find_package(Qt${QT_VERSION_MAJOR} CONFIG REQUIRED Core LinguistTools Widgets)
 #
 # Other dependencies
 #
-find_package(KF${QT_VERSION_MAJOR}WidgetsAddons CONFIG REQUIRED)
 find_package(ECM REQUIRED NO_MODULE)
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
@@ -29,6 +28,8 @@ list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 # Project files
 #
 set(PROJECT_SOURCES
+    src/colorbutton.h
+    src/colorbutton.cpp
     src/coloreditor.h
     src/coloreditor.cpp
     src/colorpicker.h
@@ -121,7 +122,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt::Core
     Qt::Widgets
-    KF${QT_VERSION_MAJOR}::WidgetsAddons
 )
 if (UNIX AND NOT APPLE)
     include(GNUInstallDirs)

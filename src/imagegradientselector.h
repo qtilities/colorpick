@@ -8,23 +8,30 @@
 #ifndef IMAGEGRADIENTSELECTOR_H
 #define IMAGEGRADIENTSELECTOR_H
 
-#include <KSelector>
+#include <QAbstractSlider>
 
 /**
- * A KSelector which displays a stretched image instead of a gradient. Useful to create gradients which are not
- * RGB-based.
- */
-class ImageGradientSelector : public KSelector
+    A color selector which displays a stretched image instead of a gradient.
+    Useful to create gradients which are not RGB-based.
+*/
+class ImageGradientSelector : public QAbstractSlider
 {
 public:
     ImageGradientSelector(QWidget *parent = nullptr);
 
     void setImage(const QImage &image);
 
-protected:
-    void drawContents(QPainter *painter) override;
-
 private:
+    void mouseMoveEvent(QMouseEvent *) override;
+    void mousePressEvent(QMouseEvent *) override;
+    void wheelEvent(QWheelEvent *) override;
+    void paintEvent(QPaintEvent *) override;
+
+    QRectF imageRect() const;
+    QRectF arrowRect() const;
+    int arrowPosition() const;
+    void setArrowPosition(const QPoint &);
+
     QImage mImage;
 };
 

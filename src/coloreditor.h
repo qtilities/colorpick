@@ -12,7 +12,7 @@
 
 class ComponentEditor;
 
-class KColorButton;
+class ColorButton;
 
 class QLabel;
 class QLineEdit;
@@ -40,7 +40,7 @@ private:
     void startPicking();
     void fillCopyMenu();
 
-    KColorButton *mColorButton;
+    ColorButton *mColorButton;
     QLineEdit *mLineEdit;
     QMenu *mCopyMenu;
 

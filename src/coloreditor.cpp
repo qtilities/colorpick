@@ -12,10 +12,11 @@
 #include "rgbcolorspace.h"
 #include "componenteditor.h"
 
-#include <KColorButton>
+#include "colorbutton.h"
 
 #include <QApplication>
 #include <QClipboard>
+#include <QColorDialog>
 #include <QDebug>
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -64,9 +65,13 @@ ColorEditor::ColorEditor(const QIcon &icon, QWidget *parent) : QWidget(parent)
     QLabel *iconLabel = new QLabel;
     iconLabel->setPixmap(icon.pixmap(40, 40));
 
-    mColorButton = new KColorButton();
+    mColorButton = new ColorButton(this);
     mColorButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
-    connect(mColorButton, &KColorButton::changed, this, &ColorEditor::setColor);
+
+    connect(mColorButton, &ColorButton::clicked, this, [this]() {
+        const QColor color = QColorDialog::getColor(mColor, this);
+        setColor(color);
+    });
 
     mLineEdit = new QLineEdit();
     connect(mLineEdit, &QLineEdit::textEdited, this, [this](const QString &text) {
