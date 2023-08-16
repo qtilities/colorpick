@@ -62,13 +62,14 @@ To contribute language translations, you can use Qt Linguist and/or manually:
   (see the existing translations as reference)
 - Create a Pull Request with your changes.
 
-## Author
+## Authors
 
-Aurélien Gâteau
+Aurélien Gâteau - original author
+Andrea Zanellato - current maintainer
 
 ## License
 
-BSD
+[BSD-3-Clause-Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html)
 
 
 [1]: http://agateau.com/2014/lightweight-project-management
