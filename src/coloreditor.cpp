@@ -58,12 +58,10 @@ protected:
     }
 };
 
-ColorEditor::ColorEditor(const QIcon &icon, QWidget *parent) : QWidget(parent)
+ColorEditor::ColorEditor(QWidget *parent)
+    : QWidget(parent)
 {
     setAcceptDrops(true);
-
-    QLabel *iconLabel = new QLabel;
-    iconLabel->setPixmap(icon.pixmap(40, 40));
 
     mColorButton = new ColorButton(this);
     mColorButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
@@ -84,18 +82,18 @@ ColorEditor::ColorEditor(const QIcon &icon, QWidget *parent) : QWidget(parent)
 
     QToolButton *pickerButton = new QToolButton();
     pickerButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Minimum);
-    pickerButton->setIcon(QIcon::fromTheme("color-picker"));
+    pickerButton->setIcon(QIcon(":/colorpicker"));
     connect(pickerButton, &QToolButton::clicked, this, &ColorEditor::startPicking);
 
     setupCopyButton();
 
     mRgbEditor = new ComponentEditor(RgbColorSpace::instance());
-    connect(mRgbEditor, &ComponentEditor::colorChanged, this, &ColorEditor::setColor);
     mHsvEditor = new ComponentEditor(HsvColorSpace::instance());
+
+    connect(mRgbEditor, &ComponentEditor::colorChanged, this, &ColorEditor::setColor);
     connect(mHsvEditor, &ComponentEditor::colorChanged, this, &ColorEditor::setColor);
 
     QGridLayout *layout = new QGridLayout(this);
-    layout->addWidget(iconLabel, 0, 0, 2, 1, Qt::AlignTop);
     layout->addWidget(mColorButton, 0, 1);
     layout->addWidget(mLineEdit, 0, 2);
     layout->addWidget(pickerButton, 0, 3);

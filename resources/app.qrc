@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>icons/sc-apps-colorpick.svg</file>
+        <file alias="colorpicker">icons/colorpicker.svg</file>
     </qresource>
 </RCC>

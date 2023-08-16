@@ -23,7 +23,7 @@ class ColorEditor : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ColorEditor(const QIcon &icon, QWidget *parent = 0);
+    explicit ColorEditor(QWidget *parent = nullptr);
 
     QColor color() const;
     void setColor(const QColor &color);
