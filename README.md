@@ -1,6 +1,6 @@
 # Colorpick: Color picker and contrast checker
 
-![Contrast check](screenshots/contrast.png)
+![Main window](resources/screenshot.png)
 
 Colorpick is a color picker, which makes it easy to check text readability by
 letting you pick a background and foreground color and computing the contrast
@@ -15,16 +15,12 @@ cursor keys, for precise picking.
 Finally, it lets you adjust colors and copy them to the clipboard as different
 formats.
 
-Colorpick is managed using the [lightweight project management policy][1].
-
 Currently, working only under X11 based systems.
 
 ## Requirements
 
 - CMake
 - Qt 5/6
-- [KGuiAddons][2]
-- [KWidgetsAddons][3]
 
 ## Installation
 
@@ -64,14 +60,8 @@ To contribute language translations, you can use Qt Linguist and/or manually:
 
 ## Authors
 
-Aurélien Gâteau - original author
-Andrea Zanellato - current maintainer
+See the [AUTHORS](AUTHORS) file.
 
 ## License
 
 [BSD-3-Clause-Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html)
-
-
-[1]: http://agateau.com/2014/lightweight-project-management
-[2]: https://invent.kde.org/frameworks/kguiaddons/
-[3]: https://invent.kde.org/frameworks/kwidgetsaddons/
