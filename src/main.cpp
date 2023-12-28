@@ -8,21 +8,42 @@
 #include <QApplication>
 #include <QLibraryInfo>
 #include <QLocale>
+#include <QScreen>
 #include <QTranslator>
 
 #include "window.h"
 
+static QScreen *screenAt(const QPoint &pos)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    return qApp->screenAt(pos);
+#else
+    const QList<QScreen*> screens = QGuiApplication::screens();
+    for (QScreen *screen : screens) {
+        if (screen->geometry().contains(pos))
+            return screen;
+    }
+    return nullptr;
+#endif
+}
+static void centerOnScreen(QWidget *widget)
+{
+    // Result is not correct but better than nothing
+    if (const QScreen *screen = screenAt(QCursor::pos())) {
+        widget->move(screen->geometry().center() - widget->frameGeometry().center());
+    }
+}
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
     QTranslator qtTranslator, translator;
 
     // For some reason Qtc loads the wrong locale, force it for debugging.
-#if 1
-    QLocale locale = QLocale::system();
-#else
+#if PROJECT_TRANSLATION_TEST_ENABLED
     QLocale locale(QLocale("it"));
     QLocale::setDefault(locale);
+#else
+    QLocale locale = QLocale::system();
 #endif
     // install the translations built-into Qt itself
     if (qtTranslator.load(QStringLiteral("qt_") + locale.name(),
@@ -66,6 +87,8 @@ int main(int argc, char** argv)
     app.setWindowIcon(appIcon);
 
     Window window;
+    centerOnScreen(&window);
     window.show();
+
     return app.exec();
 }

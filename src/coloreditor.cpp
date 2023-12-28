@@ -73,7 +73,11 @@ ColorEditor::ColorEditor(QWidget *parent)
 
     mLineEdit = new QLineEdit();
     connect(mLineEdit, &QLineEdit::textEdited, this, [this](const QString &text) {
+#if QT_VERSION < 0x060000
         if (QColor::isValidColor(text)) {
+#else
+        if (QColor::isValidColorName(text)) {
+#endif
             mFromLineEdit = true;
             setColor(QColor(text));
             mFromLineEdit = false;
