@@ -2,6 +2,9 @@
 
 ![Main window](resources/screenshot.png)
 
+**⚠ Currently, working only under X11 based systems;
+under Wayland the contrast checker is working, the picker selection doesn't work yet. ⚠**
+
 Colorpick is a color picker, which makes it easy to check text readability by
 letting you pick a background and foreground color and computing the contrast
 between them.
@@ -14,8 +17,6 @@ cursor keys, for precise picking.
 
 Finally, it lets you adjust colors and copy them to the clipboard as different
 formats.
-
-Currently, working only under X11 based systems.
 
 ## Requirements
 
