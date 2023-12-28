@@ -1,9 +1,6 @@
 # Colorpick: Color picker and contrast checker
 
-![Main window](resources/screenshot.png)
-
-**⚠ Currently, working only under X11 based systems;
-under Wayland the contrast checker is working, the picker selection doesn't work yet. ⚠**
+[![CI]](https://github.com/qtilities/colorpick/actions/workflows/build.yml)
 
 Colorpick is a color picker, which makes it easy to check text readability by
 letting you pick a background and foreground color and computing the contrast
@@ -18,33 +15,42 @@ cursor keys, for precise picking.
 Finally, it lets you adjust colors and copy them to the clipboard as different
 formats.
 
-## Requirements
+**⚠ Currently, working only under X11 based systems;
+under Wayland the contrast checker is working,
+the color picker selector doesn't work yet. ⚠**
+
+![Main window](resources/screenshot.png)
+
+## Dependencies
+
+### Runtime
+
+- Qt 5/6 base
+
+### Build
 
 - CMake
-- Qt 5/6
+- Qt Linguist Tools
+- [Qtilitools] CMake modules
+- Git (optional, to pull latest VCS checkouts)
 
-## Installation
+## Build
 
-Create a build directory and change to it:
-
-```bash
-mkdir build
-cd build
-```
-
-By default, Qt5 is used for build, otherwise change it by adding `-DPROJECT_QT_VERSION=6`
-to the following CMake configure command:
+`CMAKE_BUILD_TYPE` is usually set to `Release`, though `None` might be a valid [alternative].<br />
+`CMAKE_INSTALL_PREFIX` has to be set to `/usr` on most operating systems.<br />
+By default, Qt5 is used for build, otherwise change it by adding `-D PROJECT_QT_VERSION=6`.
 
 ```bash
-cmake path/to/colorpick
-make
+cmake -B build -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr -W no-dev
+cmake --build build --verbose
+DESTDIR="$(pwd)/package" cmake --install build
 ```
 
-Install (must be run as root if installing to /usr or /usr/local):
+Using `sudo make install` is discouraged, instead use the system package manager where possible.
 
-```bash
-make install
-```
+## Packages
+
+[![Packaging status]](https://repology.org/project/colorpick/versions)
 
 ## Translations
 
@@ -54,15 +60,23 @@ To contribute language translations, you can use Qt Linguist and/or manually:
   `resource/translations/colorpick_<country-code>.ts`, e.g.: `colorpick_de.ts`
 - Set the language in the file:
   from `<TS version="2.1">` to `<TS version="2.1" language="de">`
-- Translate it and the `resources/freedesktop/colorpick.desktop` file by adding
-  e.g.: `GenericName[de]`, `Comment[de]` and optionally `Name[de]`
-  (see the existing translations as reference)
+- Copy `resource/translations/colorpick.desktop.yaml` language template to
+  `resource/translations/colorpick_<country-code>.desktop.yaml`, e.g.: `colorpick_de.desktop.yaml`
+- Translate them (see the existing translations as reference)
 - Create a Pull Request with your changes.
 
 ## Authors
 
-See the [AUTHORS](AUTHORS) file.
+See the [AUTHORS] file.
 
 ## License
 
-[BSD-3-Clause-Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html)
+[BSD-3-Clause-Clear]
+
+
+[AUTHORS]:            AUTHORS
+[alternative]:        https://wiki.archlinux.org/title/CMake_package_guidelines#Fixing_the_automatic_optimization_flag_override
+[BSD-3-Clause-Clear]: https://spdx.org/licenses/BSD-3-Clause-Clear.html
+[CI]:                 https://github.com/qtilities/colorpick/actions/workflows/build.yml/badge.svg
+[Packaging status]:   https://repology.org/badge/vertical-allrepos/colorpick.svg
+[Qtilitools]:         https://github.com/qtilities/qtilitools/
