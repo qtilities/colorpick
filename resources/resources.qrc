@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file alias="info">about.md</file>
+        <file>authors</file>
+        <file alias="license">copying</file>
         <file alias="colorpicker">icons/colorpicker.svg</file>
     </qresource>
 </RCC>
