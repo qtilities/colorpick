@@ -56,13 +56,14 @@ source_group("Sources" FILES ${PROJECT_SOURCES})
 source_group("Misc" FILES ${PROJECT_OTHER_FILES})
 
 include(Config.cmake)
-include(QtAppResources)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 if(QTILITIES_USE_DOWNLOAD_TRANSLATIONS)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
     include(GitDownloadTranslations)
     git_download_translations("${PROJECT_REPOSITORY_I18N_URL}" "${CMAKE_CURRENT_SOURCE_DIR}/resources")
 endif()
+
+include(QtAppResources)
 
 set(PROJECT_ALL_FILES
     ${PROJECT_DESKTOP_FILES}
