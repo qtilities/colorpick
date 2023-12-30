@@ -2,21 +2,22 @@
 
 # Essential, non translatable application information (except DESCRIPTION).
 # Translatable strings are passed via code.
-string(TOLOWER ${PROJECT_NAME} PROJECT_ID)
-list(APPEND PROJECT_CATEGORIES "Qt;KDE;Graphics;Utility") # Freedesktop menu categories
-list(APPEND PROJECT_KEYWORDS   "colorpicker;color-picker;contrast-ratio")
-set(PROJECT_AUTHOR_NAME        "Aurélien Gâteau, Andrea Zanellato")
-set(PROJECT_AUTHOR_EMAIL       "redtid3@gmail.com") # Used also for organization email
-set(PROJECT_COPYRIGHT_YEAR     "2023") # TODO: from git
-set(PROJECT_DESCRIPTION        "A color picker with a builtin loop and a contrast checker.")
-set(PROJECT_ORGANIZATION_NAME  "qtilities") # Might be equal to PROJECT_AUTHOR_NAME
-set(PROJECT_ORGANIZATION_URL   "${PROJECT_ORGANIZATION_NAME}.github.io")
-set(PROJECT_HOMEPAGE_URL       "https://${PROJECT_ORGANIZATION_URL}/${PROJECT_ID}")
-set(PROJECT_REPOSITORY_URL     "https://github.com/${PROJECT_ORGANIZATION_NAME}/${PROJECT_ID}")
-set(PROJECT_REPOSITORY_BRANCH  "master")
-set(PROJECT_SPDX_ID            "BSD-3-Clause-Clear")
-set(PROJECT_TRANSLATIONS_DIR   "resources/translations")
-set(PROJECT_ICON_FORMAT        "svg")
+string(TOLOWER ${PROJECT_NAME}  PROJECT_ID)
+list(APPEND PROJECT_CATEGORIES  "Qt;KDE;Graphics;Utility") # Freedesktop menu categories
+list(APPEND PROJECT_KEYWORDS    "colorpicker;color-picker;contrast-ratio")
+set(PROJECT_AUTHOR_NAME         "Aurélien Gâteau, Andrea Zanellato")
+set(PROJECT_AUTHOR_EMAIL        "redtid3@gmail.com") # Used also for organization email
+set(PROJECT_COPYRIGHT_YEAR      "2023") # TODO: from git
+set(PROJECT_DESCRIPTION         "A color picker with a builtin loop and a contrast checker.")
+set(PROJECT_ORGANIZATION_NAME   "qtilities") # Might be equal to PROJECT_AUTHOR_NAME
+set(PROJECT_ORGANIZATION_URL    "${PROJECT_ORGANIZATION_NAME}.github.io")
+set(PROJECT_HOMEPAGE_URL        "https://${PROJECT_ORGANIZATION_URL}/${PROJECT_ID}")
+set(PROJECT_REPOSITORY_URL      "https://github.com/${PROJECT_ORGANIZATION_NAME}/${PROJECT_ID}")
+set(PROJECT_REPOSITORY_I18N_URL "https://github.com/${PROJECT_ORGANIZATION_NAME}-i18n/${PROJECT_ID}")
+set(PROJECT_REPOSITORY_BRANCH   "master")
+set(PROJECT_SPDX_ID             "BSD-3-Clause-Clear")
+set(PROJECT_TRANSLATIONS_DIR    "resources/translations")
+set(PROJECT_ICON_FORMAT         "svg")
 
 # Appstream
 if(PROJECT_USE_APPSTREAM)

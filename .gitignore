@@ -1,4 +1,5 @@
 build*/
+resources/translations/
 *.pyc
 ui_*.py
 CMakeLists.txt.user

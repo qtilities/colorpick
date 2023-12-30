@@ -7,8 +7,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-option(PROJECT_TRANSLATIONS_UPDATE "Update source translations      [default: OFF]" OFF)
-option(PROJECT_USE_APPSTREAM_ID    "Whether to use AppStream naming [default: ON]"  OFF)
+option(QTILITIES_USE_DOWNLOAD_TRANSLATIONS          "Download translations if missing        [default: ON]"  ON)
+option(PROJECT_TRANSLATIONS_UPDATE                  "Update source translations              [default: OFF]" OFF)
+option(PROJECT_USE_APPSTREAM_ID                     "Whether to use AppStream naming         [default: OFF]" OFF)
 set(PROJECT_TRANSLATION_TEST_ENABLED 0 CACHE STRING "Whether to enable translation testing   [default: 0]")
 set(PROJECT_TRANSLATION_TEST "it" CACHE STRING      "Country code of language to test in IDE [default: it]")
 
@@ -56,6 +57,12 @@ source_group("Misc" FILES ${PROJECT_OTHER_FILES})
 
 include(Config.cmake)
 include(QtAppResources)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+if(QTILITIES_USE_DOWNLOAD_TRANSLATIONS)
+    include(GitDownloadTranslations)
+    git_download_translations("${PROJECT_REPOSITORY_I18N_URL}" "${CMAKE_CURRENT_SOURCE_DIR}/resources")
+endif()
 
 set(PROJECT_ALL_FILES
     ${PROJECT_DESKTOP_FILES}

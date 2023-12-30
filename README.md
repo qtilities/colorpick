@@ -54,15 +54,17 @@ Using `sudo make install` is discouraged, instead use the system package manager
 
 ## Translations
 
+Translations was moved to [qtilities-i18n] organization for convenience.
+
 To contribute language translations, you can use Qt Linguist and/or manually:
 
-- Copy `resource/translations/colorpick.ts` language template to
-  `resource/translations/colorpick_<country-code>.ts`, e.g.: `colorpick_de.ts`
+- Copy `translations/colorpick.ts` language template to
+  `translations/colorpick_<country-code>.ts`, e.g.: `colorpick_de.ts`
 - Set the language in the file:
   from `<TS version="2.1">` to `<TS version="2.1" language="de">`
-- Copy `resource/translations/colorpick.desktop.yaml` language template to
-  `resource/translations/colorpick_<country-code>.desktop.yaml`, e.g.: `colorpick_de.desktop.yaml`
-- Translate them (see the existing translations as reference)
+- Copy `translations/colorpick.desktop.yaml` language template to
+  `translations/colorpick_<your_country_code>.desktop.yaml`, e.g.: `colorpick_de.desktop.yaml`
+- Translate them (see existing translations for reference).
 - Create a Pull Request with your changes.
 
 ## Authors
@@ -79,4 +81,5 @@ See the [AUTHORS] file.
 [BSD-3-Clause-Clear]: https://spdx.org/licenses/BSD-3-Clause-Clear.html
 [CI]:                 https://github.com/qtilities/colorpick/actions/workflows/build.yml/badge.svg
 [Packaging status]:   https://repology.org/badge/vertical-allrepos/colorpick.svg
+[qtilities-i18n]:     https://github.com/qtilities-i18n/colorpick/
 [Qtilitools]:         https://github.com/qtilities/qtilitools/
