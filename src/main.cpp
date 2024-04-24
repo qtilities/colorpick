@@ -84,6 +84,7 @@ int main(int argc, char** argv)
     app.setApplicationDisplayName(APPLICATION_DISPLAY_NAME);
     app.setOrganizationName(ORGANIZATION_NAME);
     app.setOrganizationDomain(ORGANIZATION_DOMAIN);
+    app.setDesktopFileName(PROJECT_APPSTREAM_ID);
     app.setWindowIcon(appIcon);
 
     Window window;

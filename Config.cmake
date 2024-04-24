@@ -16,7 +16,7 @@ set(PROJECT_REPOSITORY_URL      "https://github.com/${PROJECT_ORGANIZATION_NAME}
 set(PROJECT_REPOSITORY_I18N_URL "https://github.com/${PROJECT_ORGANIZATION_NAME}-i18n/${PROJECT_ID}")
 set(PROJECT_REPOSITORY_BRANCH   "master")
 set(PROJECT_SPDX_ID             "BSD-3-Clause-Clear")
-set(PROJECT_TRANSLATIONS_DIR    "resources/translations")
+set(PROJECT_TRANSLATIONS_DIR    "${CMAKE_SOURCE_DIR}/resources/translations")
 set(PROJECT_ICON_FORMAT         "svg")
 
 # Appstream
