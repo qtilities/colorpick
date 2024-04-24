@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        qt_version: [5, 6]
         config:
         - { name: "GCC", cc: gcc, cxx: g++ }
         - { name: "clang", cc: clang, cxx: clang++ }
@@ -37,24 +38,18 @@ jobs:
         repository: qtilities/qtilitools
         path: qtilitools
 
-    - name: Python Setup
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-
     - name: Update Packages
       run: sudo apt-get update
 
     - name: Install Dependencies
       run: |
-        packages=(
-          qtbase5-dev
-          qttools5-dev
-        )
-        sudo apt-get install ${packages[@]}
-        pip3 install xmlschema
+        sudo apt-get install doxygen \
+        ${{ matrix.qt_version == 5
+        && 'qtbase5-dev qttools5-dev'
+        || 'qt6-base-dev libgl1-mesa-dev qt6-l10n-tools qt6-tools-dev qt6-tools-dev-tools'
+        }}
 
-    - name: Build and install Qtilitools
+    - name: Install Qtilitools
       working-directory: ${{ github.workspace }}/qtilitools
       run: |
         options=(
@@ -70,9 +65,10 @@ jobs:
         options=(
           -D CMAKE_INSTALL_PREFIX="/usr"
           -D CMAKE_BUILD_TYPE=${{ env.build_type }}
+          -D PROJECT_QT_VERSION=${{ matrix.qt_version }}
           -B build
         )
         cmake ${options[@]}
 
     - name: Build
-      run: cmake --build build --config ${{ env.build_type }}
+      run: cmake --build build --verbose
