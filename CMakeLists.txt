@@ -116,6 +116,10 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 install(TARGETS ${PROJECT_NAME}
     DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_finalize_executable(${PROJECT_NAME})
+endif()
+
 message(STATUS "
 Project name:                     ${PROJECT_NAME}
 AppStream ID:                     ${PROJECT_APPSTREAM_ID}
@@ -125,6 +129,3 @@ Build type:                       ${CMAKE_BUILD_TYPE}
 Install prefix:                   ${CMAKE_INSTALL_PREFIX}
 Update translations before build: ${PROJECT_TRANSLATIONS_UPDATE}
 ")
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(${PROJECT_NAME})
-endif()
